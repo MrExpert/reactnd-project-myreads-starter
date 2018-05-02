@@ -1,7 +1,7 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
-
+import {Link,Route} from 'react-router-dom'
 class BooksApp extends React.Component {
   state = {
     /**
@@ -10,16 +10,29 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
+    
     showSearchPage: false
   }
 
   render() {
     return (
-      <div className="app">
-        {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+      <div className="app">   
+        {this.state.showSearchPage ? ( // this.state.showSearchPage has like an "if" statement. 
+                                       //so this is 1st part of that
+                                       // "?" is checking that 
+                                       // showSearchPage: is false at the moment
+                                       // so 2st part of if statement () runs
+                                       
+          
+    <div className="search-books"> {/* class 'search-books' starts */}
+            
+            <div className="search-books-bar"> { /* className="search-books-bar" Starts */ }
+
+              
+              <Route>
+                <Link to="/create" className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</Link>
+              </Route>
+
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -31,42 +44,81 @@ class BooksApp extends React.Component {
                 */}
                 <input type="text" placeholder="Search by title or author"/>
 
-              </div>
-            </div>
-            <div className="search-books-results">
+              </div> {/* this is class "search-books-input-wrapper"  Ends*/}
+                  
+            </div> { /* className="search-books-bar" Ends */ }
+
+            <div className="search-books-results"> 
               <ol className="books-grid"></ol>
-            </div>
-          </div>
-        ) : (
-          <div className="list-books">
+            </div> 
+
+          </div> // class 'search-books'ends
+
+        ) // this.state.showSearchPage has like an "if" statement. so this is 1st part of that
+          // this is NOT running now - because this.state.showSearchPage is False! 
+
+         : ( // 2nd part of if statement is starting - running now - 
+          
+           
+           
+          <div className="list-books"> {/* list-books Starts */}
+
             <div className="list-books-title">
               <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <div className="bookshelf">
+           
+          
+           	<Link to="/addbook">Add Book</Link>
+           
+           <Route path='/addbook' component={() => (<h1>test</h1>)}/> 
+
+           
+            </div> 
+
+            <div className="list-books-content"> { /* list-books-content 
+                                                    1 level higher than a Container below starts */}
+              
+              <div> { /* this covers/wraps around like a Container for all 3 shelves */}
+
+                <div className="bookshelf"> { /* bookshelf #1 starts */}
+
                   <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      <li>
-                        <div className="book">
-                          <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' }}></div>
+                  
+                  <div className="bookshelf-books"> { /* bookshelf-books starts 
+                                                          I'm thinking of it as 
+                                                          1st part of shelf 'Currently reading' */}
+                    
+                    <ol className="books-grid"> {/* ol starts */ }
+                      
+                      <li> {/* 1st li starts */}
+                        
+                        <div className="book"> {/* book Starts */}
+                          
+                          <div className="book-top"> {/* book-top Starts */}
+                            
+                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' }}>
+                            </div>
+                            
                             <div className="book-shelf-changer">
-                              <select>
-                                <option value="none" disabled>Move to...</option>
+                              <select >
+                                <option value="moveTo" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
                                 <option value="read">Read</option>
                                 <option value="none">None</option>
                               </select>
-                            </div>
-                          </div>
+                            </div> {/* book-shelf-changer Ends */}
+
+                          </div> {/* book-top Ends*/}
+
                           <div className="book-title">To Kill a Mockingbird</div>
+
                           <div className="book-authors">Harper Lee</div>
-                        </div>
-                      </li>
-                      <li>
+
+                        </div> {/* Book ends */}
+                      
+                      </li> {/* 1st li Ends */}
+
+                      <li> {/** 2nd li starts */}
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url("http://books.google.com/books/content?id=yDtCuFHXbAYC&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72RRiTR6U5OUg3IY_LpHTL2NztVWAuZYNFE8dUuC0VlYabeyegLzpAnDPeWxE6RHi0C2ehrR9Gv20LH2dtjpbcUcs8YnH5VCCAH0Y2ICaKOTvrZTCObQbsfp4UbDqQyGISCZfGN&source=gbs_api")' }}></div>
@@ -83,11 +135,17 @@ class BooksApp extends React.Component {
                           <div className="book-title">Ender's Game</div>
                           <div className="book-authors">Orson Scott Card</div>
                         </div>
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
+                      </li> {/* 2nd li Ends */}
+
+                    </ol> {/* ol Ends */}
+
+                  </div> { /* bookshelf-books Ends 
+                                                          I'm thinking of it as 
+                                                          1st part of the shelf 'Currently reading' bookshelf-books Ends */}
+                
+                </div>  { /* bookshelf #1 Ends */}
+
+                <div className="bookshelf"> { /* bookshelf #2 Starts */}
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
@@ -129,8 +187,9 @@ class BooksApp extends React.Component {
                       </li>
                     </ol>
                   </div>
-                </div>
-                <div className="bookshelf">
+                </div> { /* bookshelf #2 Ends */}
+
+                <div className="bookshelf"> { /* bookshelf #3 Begins */}
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
@@ -157,7 +216,7 @@ class BooksApp extends React.Component {
                           <div className="book-top">
                             <div className="book-cover" style={{ width: 128, height: 174, backgroundImage: 'url("http://books.google.com/books/content?id=1q_xAwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE712CA0cBYP8VKbEcIVEuFJRdX1k30rjLM29Y-dw_qU1urEZ2cQ42La3Jkw6KmzMmXIoLTr50SWTpw6VOGq1leINsnTdLc_S5a5sn9Hao2t5YT7Ax1RqtQDiPNHIyXP46Rrw3aL8&source=gbs_api")' }}></div>
                             <div className="book-shelf-changer">
-                              <select>
+                              <select >
                                 <option value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -190,17 +249,25 @@ class BooksApp extends React.Component {
                       </li>
                     </ol>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="open-search">
+                </div>{ /* bookshelf #3 Ends */}
+
+              </div> { /* this covers/wraps around like a Container for all 3 shelves */}
+
+            </div> { /* list-books-content starts */}
+
+            <div className="open-search"> {/* Add book button with onClick method */}
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
-          </div>
-        )}
-      </div>
-    )
-  }
-}
+            </div>  
+
+          </div> //* list-books Ends */ 
+
+        ) // 2nd part of if statement Ends
+
+        } {/* this.state.showSearchPage has like an "if" statement. so this is the End part of that */}
+
+      </div>  // className 'app' Ends
+    ) // render's Return method Closes
+  } // render method Ends
+} // main BooksApp class Ends
 
 export default BooksApp
